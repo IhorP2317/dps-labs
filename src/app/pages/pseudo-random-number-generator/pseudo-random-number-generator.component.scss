@@ -1,0 +1,32 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    align-items: start;
+    justify-content: center;
+}
+.fixed-height{
+    height: 5rem;
+}
+.p-field {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 6.25rem;
+    justify-content: space-between;
+}
+
+.center-button {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+}
+
+button[type="submit"] {
+    align-self: center;
+}
+
+label {
+    margin: 0.5rem 0;
+}

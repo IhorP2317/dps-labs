@@ -1,0 +1,100 @@
+<div class="base-wrapper">
+    <form [formGroup]="linearComparisonForm" class="form-grid" (ngSubmit)="onSubmit()">
+        <div class="grid-container">
+            <div class="p-field fixed-height">
+                <label for="m">Modulus (m):</label>
+                <p-inputNumber
+                    id="m"
+                    formControlName="m"
+                    [showButtons]="true"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    mode="decimal"
+                    [min]="1"
+                    placeholder="Enter modulus value"
+                ></p-inputNumber>
+                <small *ngIf="linearComparisonForm.get('m')?.invalid && linearComparisonForm.get('m')?.touched"
+                       class="p-error">Invalid modulus value. Must be greater than 0.</small>
+            </div>
+
+            <div class="p-field fixed-height">
+                <label for="a">Multiplier (a):</label>
+                <p-inputNumber
+                    id="a"
+                    formControlName="a"
+                    [showButtons]="true"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    mode="decimal"
+                    [min]="0"
+                    placeholder="Enter multiplier value"
+                ></p-inputNumber>
+                <small *ngIf="linearComparisonForm.get('a')?.invalid && linearComparisonForm.get('a')?.touched"
+                       class="p-error">Invalid multiplier value. Must be between 0 and m.</small>
+            </div>
+
+            <div class="p-field fixed-height">
+                <label for="c">Increment (c):</label>
+                <p-inputNumber
+                    id="c"
+                    formControlName="c"
+                    [showButtons]="true"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    mode="decimal"
+                    [min]="0"
+                    placeholder="Enter increment value"
+                ></p-inputNumber>
+                <small *ngIf="linearComparisonForm.get('c')?.invalid && linearComparisonForm.get('c')?.touched"
+                       class="p-error">Invalid increment value. Must be between 0 and m.</small>
+            </div>
+
+            <div class="p-field fixed-height">
+                <label for="x0">Initial Seed (x0):</label>
+                <p-inputNumber
+                    id="x0"
+                    formControlName="x0"
+                    [showButtons]="true"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    mode="decimal"
+                    [min]="0"
+                    placeholder="Enter initial seed value"
+                ></p-inputNumber>
+                <small *ngIf="linearComparisonForm.get('x0')?.invalid && linearComparisonForm.get('x0')?.touched"
+                       class="p-error">Invalid initial seed value. Must be between 0 and m.</small>
+            </div>
+
+            <div class="p-field fixed-height">
+                <label for="amount">Amount:</label>
+                <p-inputNumber
+                    id="amount"
+                    formControlName="amount"
+                    [showButtons]="true"
+                    [minFractionDigits]="0"
+                    [maxFractionDigits]="0"
+                    mode="decimal"
+                    [min]="1"
+                    placeholder="Enter amount of numbers to generate"
+                ></p-inputNumber>
+                <small *ngIf="linearComparisonForm.get('amount')?.invalid && linearComparisonForm.get('amount')?.touched"
+                       class="p-error">Invalid amount. Must be at least 1.</small>
+            </div>
+
+            <div class="p-field center-button fixed-height">
+                <button type="submit" pButton label="Generate Numbers" [disabled]="linearComparisonForm.invalid"></button>
+            </div>
+        </div>
+    </form>
+    <div class="p-field numbers-area" *ngIf="sequenceOfNumbers">
+        <label for="sequence">Generated Sequence of Numbers:</label>
+        <textarea
+            id="sequence"
+            rows="10"
+            cols="100"
+            [value]="sequenceOfNumbers?.join(', ')"
+            readonly
+            class="p-inputtext p-component"
+        ></textarea>
+    </div>
+</div>

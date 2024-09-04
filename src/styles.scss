@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+
+@layer reset, primeng;
+
+
+@layer reset {
+
+}
+.base-wrapper{
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+}
