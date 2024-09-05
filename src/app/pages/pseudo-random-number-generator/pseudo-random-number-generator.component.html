@@ -89,10 +89,10 @@
     <div class="p-field numbers-area" *ngIf="sequenceOfNumbers">
         <div class="area-header">
             <label for="sequence">Generated Sequence of Numbers</label>
-            <div class="ml-auto">
+            <div class="download-button-area">
+                <p *ngIf="period !== 0">period: {{period}}</p>
                 <button pButton type="button" label="Download" class="p-button-icon-left custom-button" (click)="downloadJson()">
                     <i class="pi pi-download"></i>
-
                 </button>
             </div>
         </div>
