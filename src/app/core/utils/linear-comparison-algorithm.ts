@@ -10,9 +10,6 @@ export function generateRandomNumbers(
     sequenceOfNumbers.push(Xn);
     for (let i = 0; i < amount; ++i) {
         Xn = (a * Xn + c) % m;
-        // const currentTimeMod = Date.now() % m;
-        // const pseudoRandomNumber = (Xn * currentTimeMod) % m;
-
         sequenceOfNumbers.push(Xn);
     }
     return sequenceOfNumbers;
