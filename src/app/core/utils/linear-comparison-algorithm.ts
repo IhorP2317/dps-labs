@@ -20,15 +20,12 @@ export function calculatePeriodWithTime(
     c: number,
     x0: number,
 ): number {
-    const seen = new Set<number>();
     let Xn = x0;
     let period = 0;
-
-    while (!seen.has(Xn)) {
-        seen.add(Xn);
+    do {
         Xn = (a * Xn + c) % m;
         period++;
-    }
+    } while (Xn !== x0);
 
     return period;
 }

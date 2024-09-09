@@ -90,7 +90,7 @@
         <div class="area-header">
             <label for="sequence">Generated Sequence of Numbers</label>
             <div class="download-button-area">
-                <p *ngIf="period !== 0">period: {{period}}</p>
+                <p *ngIf="!!period">period: {{period}}</p>
                 <button pButton type="button" label="Download" class="p-button-icon-left custom-button" (click)="downloadJson()">
                     <i class="pi pi-download"></i>
                 </button>
