@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import {
     AbstractControl,
-    FormBuilder,
     FormGroup,
+    NonNullableFormBuilder,
     ReactiveFormsModule,
     ValidationErrors,
     Validators,
 } from '@angular/forms';
-import {
-    calculatePeriodWithTime,
-    generateRandomNumbers,
-} from '../../core/utils/linear-comparison-algorithm';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Button, ButtonDirective } from 'primeng/button';
 import { NgIf } from '@angular/common';
+import { PseudoRandomNumbers } from '../../core/interfaces/pseudo-random-numbers-sequence';
+import { PseudoRandomNumbersEndpointService } from '../../shared/services/pseudo-random-numbers.endpoint.service';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
     selector: 'app-pseudo-random-number-generator',
@@ -26,40 +26,76 @@ import { NgIf } from '@angular/common';
         ButtonDirective,
         NgIf,
         Button,
+        InputTextareaModule,
     ],
     templateUrl: './pseudo-random-number-generator.component.html',
     styleUrl: './pseudo-random-number-generator.component.scss',
 })
-export class PseudoRandomNumberGeneratorComponent implements OnInit {
-    public sequenceOfNumbers: number[];
-    public period: number = 0;
-
+export class PseudoRandomNumberGeneratorComponent implements OnInit, OnDestroy {
+    private unsubscribe$ = new Subject<void>();
+    public sequence: PseudoRandomNumbers | null = null;
     public linearComparisonForm: FormGroup;
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private readonly formBuilder: NonNullableFormBuilder,
+        private readonly pseudoRandomNumbersService: PseudoRandomNumbersEndpointService,
+        private readonly cdr: ChangeDetectorRef,
+    ) {}
+
     ngOnInit(): void {
         this.initForm();
     }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
+
+    onSubmit() {
+        if (this.linearComparisonForm.valid) {
+            const formValues = this.linearComparisonForm.value;
+            this.pseudoRandomNumbersService
+                .getPseudoGeneratedNumbers(
+                    formValues.m,
+                    formValues.a,
+                    formValues.c,
+                    formValues.x0,
+                    formValues.amount,
+                )
+                .pipe(
+                    tap((numberSequence) => {
+                        debugger;
+                        this.sequence = numberSequence;
+                        this.cdr.detectChanges();
+                    }),
+                    takeUntil(this.unsubscribe$),
+                )
+                .subscribe();
+        } else {
+            this.linearComparisonForm.markAllAsTouched();
+        }
+    }
     private initForm() {
         this.linearComparisonForm = this.formBuilder.group({
-            m: this.formBuilder.control<number | null>(Math.pow(2, 24) - 1, [
+            m: this.formBuilder.control<number>(Math.pow(2, 24) - 1, [
                 Validators.required,
                 this.validateM(),
             ]),
-            a: this.formBuilder.control<number | null>(Math.pow(11, 3), [
+            a: this.formBuilder.control<number>(Math.pow(11, 3), [
                 Validators.required,
                 this.validateA(),
             ]),
-            c: this.formBuilder.control<number | null>(610, [
+            c: this.formBuilder.control<number>(610, [
                 Validators.required,
                 this.validateC(),
             ]),
-            x0: this.formBuilder.control<number | null>(9, [
+            x0: this.formBuilder.control<number>(9, [
                 Validators.required,
                 this.validateX0(),
             ]),
-            amount: this.formBuilder.control<number | null>(9, [
+            amount: this.formBuilder.control<number>(9, [
                 Validators.required,
                 Validators.min(1),
+                Validators.max(100),
             ]),
         });
     }
@@ -99,34 +135,5 @@ export class PseudoRandomNumberGeneratorComponent implements OnInit {
                 ? null
                 : { invalidX0: 'x0 must be between 0 and m' };
         };
-    }
-    onSubmit() {
-        if (this.linearComparisonForm.valid) {
-            this.period = calculatePeriodWithTime(
-                this.linearComparisonForm.value.m,
-                this.linearComparisonForm.value.a,
-                this.linearComparisonForm.value.c,
-                this.linearComparisonForm.value.x0,
-            );
-            this.sequenceOfNumbers = generateRandomNumbers(
-                this.linearComparisonForm.value.m,
-                this.linearComparisonForm.value.a,
-                this.linearComparisonForm.value.c,
-                this.linearComparisonForm.value.x0,
-                this.linearComparisonForm.value.amount,
-            );
-        }
-    }
-    downloadJson(): void {
-        const jsonData = JSON.stringify(this.sequenceOfNumbers, null, 2);
-        const blob = new Blob([jsonData], { type: 'application/json' });
-        const url = window.URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'sequence.json';
-        a.click();
-
-        window.URL.revokeObjectURL(url);
     }
 }

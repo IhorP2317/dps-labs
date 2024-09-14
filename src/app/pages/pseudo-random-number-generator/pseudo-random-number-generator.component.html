@@ -13,8 +13,12 @@
                     [min]="1"
                     placeholder="Enter modulus value"
                 ></p-inputNumber>
-                <small *ngIf="linearComparisonForm.get('m')?.invalid && linearComparisonForm.get('m')?.touched"
-                       class="p-error">Invalid modulus value. Must be greater than 0.</small>
+                @if(linearComparisonForm.controls['m'].invalid && linearComparisonForm.controls['m'].value.touched){
+                    <small
+                        class="p-error">Invalid modulus value. Must be greater than 0.
+                    </small>
+                }
+
             </div>
 
             <div class="p-field fixed-height">
@@ -29,8 +33,12 @@
                     [min]="0"
                     placeholder="Enter multiplier value"
                 ></p-inputNumber>
-                <small *ngIf="linearComparisonForm.get('a')?.invalid && linearComparisonForm.get('a')?.touched"
-                       class="p-error">Invalid multiplier value. Must be between 0 and m.</small>
+                @if(linearComparisonForm.controls['a'].invalid && linearComparisonForm.controls['a'].value.touched){
+                    <small
+                        class="p-error">Invalid multiplier value. Must be between 0 and m.
+                    </small>
+                }
+
             </div>
 
             <div class="p-field fixed-height">
@@ -45,8 +53,11 @@
                     [min]="0"
                     placeholder="Enter increment value"
                 ></p-inputNumber>
-                <small *ngIf="linearComparisonForm.get('c')?.invalid && linearComparisonForm.get('c')?.touched"
-                       class="p-error">Invalid increment value. Must be between 0 and m.</small>
+                @if(linearComparisonForm.controls['c'].invalid && linearComparisonForm.controls['c'].value.touched){
+                    <small
+                        class="p-error">Invalid increment value. Must be between 0 and m.
+                    </small>
+                }
             </div>
 
             <div class="p-field fixed-height">
@@ -61,8 +72,12 @@
                     [min]="0"
                     placeholder="Enter initial seed value"
                 ></p-inputNumber>
-                <small *ngIf="linearComparisonForm.get('x0')?.invalid && linearComparisonForm.get('x0')?.touched"
-                       class="p-error">Invalid initial seed value. Must be between 0 and m.</small>
+                @if(linearComparisonForm.controls['x0'].invalid && linearComparisonForm.controls['x0'].value.touched){
+                    <small
+                        class="p-error">Invalid initial seed value. Must be between 0 and m.
+                    </small>
+                }
+
             </div>
 
             <div class="p-field fixed-height">
@@ -75,10 +90,14 @@
                     [maxFractionDigits]="0"
                     mode="decimal"
                     [min]="1"
+                    [max]="100"
                     placeholder="Enter amount of numbers to generate"
                 ></p-inputNumber>
-                <small *ngIf="linearComparisonForm.get('amount')?.invalid && linearComparisonForm.get('amount')?.touched"
-                       class="p-error">Invalid amount. Must be at least 1.</small>
+                @if (linearComparisonForm.controls['amount'].invalid && linearComparisonForm.controls['amount'].value.touched) {
+                    <small
+                        class="p-error">Invalid amount. Must be be between 1 and 100.
+                    </small>
+                }
             </div>
 
             <div class="p-field center-button fixed-height">
@@ -86,24 +105,15 @@
             </div>
         </div>
     </form>
-    <div class="p-field numbers-area" *ngIf="sequenceOfNumbers">
-        <div class="area-header">
-            <label for="sequence">Generated Sequence of Numbers</label>
-            <div class="download-button-area">
-                <p *ngIf="!!period">period: {{period}}</p>
-                <button pButton type="button" label="Download" class="p-button-icon-left custom-button" (click)="downloadJson()">
-                    <i class="pi pi-download"></i>
-                </button>
+    @if (!!sequence?.pseudoRandomNumbers) {
+        <div class="p-field numbers-area">
+            <div class="area-header">
+                <label>Generated Sequence of Numbers</label>
+                <div class="download-button-area">
+                    <p *ngIf="!!sequence?.period">period: {{sequence?.period}}</p>
+                </div>
             </div>
+            <textarea pInputTextarea [value]="sequence?.pseudoRandomNumbers" rows="10" cols="100"></textarea>
         </div>
-
-        <textarea
-            id="sequence"
-            rows="10"
-            cols="100"
-            [value]="sequenceOfNumbers?.join(', ')"
-            readonly
-            class="p-inputtext p-component"
-        ></textarea>
-    </div>
+    }
 </div>
