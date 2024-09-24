@@ -3,7 +3,11 @@
 
 
 @layer reset {
-
+ul{
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin:0;
+}
 }
 .base-wrapper{
     height: 100%;
@@ -11,3 +15,8 @@
     display:flex;
     flex-direction: column;
 }
+.app-head{
+    text-align: center;
+    margin: 1rem 0;
+}
+

@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Button } from 'primeng/button';
 import { SpinnerModule } from 'primeng/spinner';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AppLoaderComponent } from './shared/components/app-loader/app-loader.component';
+import { AppHeaderComponent } from './shared/components/app-header/app-header.component';
 
 @Component({
     selector: 'app-root',
@@ -13,8 +15,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         Button,
         SpinnerModule,
         AsyncPipe,
-        NgIf,
         ProgressSpinnerModule,
+        AppLoaderComponent,
+        AppHeaderComponent,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',

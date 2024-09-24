@@ -1,0 +1,137 @@
+<div class="base-wrapper">
+    <h2 class="app-head">MD5 generator</h2>
+    <form [formGroup]="hashFormGroup">
+        <div class="form-container">
+            <!-- Input Group Section -->
+            <div class="d-flex flex-column">
+                <h3 class="app-head">Hash from String</h3>
+                <div formGroupName="inputGroup">
+                    <div class="grid-container">
+                        <!-- Input String -->
+                        <div class="p-col">
+                            <label for="inputString">Input String:</label>
+                            <input
+                                id="inputString"
+                                pInputText
+                                formControlName="inputString"
+                                type="text"
+                            />
+                        </div>
+
+                        <!-- MD5 File Path (Input) -->
+                        <div class="p-col">
+                            <label for="md5FileInputFromString">Select MD5 File:</label>
+                            <input
+                                id="md5FileInputFromString"
+                                type="file"
+                                accept=".md5"
+                                (change)="onFileSelected($event, 'inputGroup', 'md5FilePath')"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Calculate Hash"
+                            [disabled]="hashFormGroup.get('inputGroup')?.invalid"
+                            (click)="onInputFormSubmit()"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            (click)="getComparisonFromString()"
+                            label="Compare Hash"
+                            [disabled]="!(!!hashFormGroup.get('inputGroup.inputString')?.value && !!hashFormGroup.get('inputGroup.md5FilePath')?.value) "
+                        ></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Group Section -->
+            <div class="d-flex flex-column">
+                <h3 class="app-head">Hash from File</h3>
+                <div formGroupName="fileGroup" class="p-mt-3">
+                    <div class="grid-container">
+                        <!-- Select File -->
+                        <div class="p-col">
+                            <label for="fileInput">Select File:</label>
+                            <input
+                                id="fileInput"
+                                type="file"
+                                (change)="onFileSelected($event, 'fileGroup', 'filePath')"
+                            />
+                        </div>
+
+                        <!-- Select MD5 File -->
+                        <div class="p-col">
+                            <label for="md5FileInputFromFile">Select MD5 File:</label>
+                            <input
+                                id="md5FileInputFromFile"
+                                type="file"
+                                accept=".md5"
+                                (change)="onFileSelected($event, 'fileGroup', 'md5FilePath')"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Calculate Hash"
+                            (click)="onFileFormSubmit()"
+                            [disabled]="hashFormGroup.get('fileGroup')?.invalid"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            label="Compare Hash"
+                            (click)="getComparisonFromFile()"
+                            [disabled]="!(!!hashFormGroup.get('fileGroup.filePath')?.value && !!hashFormGroup.get('fileGroup.md5FilePath')?.value) "
+                        ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (!!md5ResultString || !!md5ResultFileName || !!md5ResultStringComparison || !!md5ResultFileNameComparison){
+            <div class="results-container">
+                @if (!!md5ResultString){
+                    <p-panel header="MD5 Hash Result from String">
+                        <div>{{ md5ResultString }}</div>
+                    </p-panel>
+                }
+                @if(!!md5ResultFileName){
+                    <p-panel header="MD5 Hash Result from File">
+                        <div>{{ md5ResultFileName }}</div>
+                    </p-panel>
+                }
+                @if (!!md5ResultStringComparison){
+                    <p-panel header="MD5 Hash Comparison from string">
+                        <div class="d-flex flex-column">
+                            <div><p>hash from external string: {{ md5ResultStringComparison.externalHash}}</p></div>
+                            <div><p>hash from md5 file: {{ md5ResultStringComparison.md5FileHash}}</p></div>
+                            <div><p>Result: {{(md5ResultStringComparison.externalHash === md5ResultStringComparison.md5FileHash)}}</p></div>
+                        </div>
+                    </p-panel>
+                }
+                @if (!!md5ResultFileNameComparison){
+                    <p-panel header="MD5 Hash Comparison from string">
+                        <div class="d-flex flex-column">
+                            <div><p>hash from external string: {{ md5ResultFileNameComparison.externalHash}}</p></div>
+                            <div><p>hash from md5 file: {{ md5ResultFileNameComparison.md5FileHash}}</p></div>
+                            <div><p>Result: {{(md5ResultFileNameComparison.externalHash === md5ResultFileNameComparison.md5FileHash)}}</p></div>
+                        </div>
+                    </p-panel>
+                }
+            </div>
+        }
+    </form>
+
+
+
+</div>
+

@@ -10,11 +10,12 @@ import {
 } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Button, ButtonDirective } from 'primeng/button';
-import { NgIf } from '@angular/common';
+
 import { PseudoRandomNumbers } from '../../core/interfaces/pseudo-random-numbers-sequence';
 import { PseudoRandomNumbersEndpointService } from '../../shared/services/pseudo-random-numbers.endpoint.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { LoadingService } from '../../shared/services/loading.service';
 
 @Component({
     selector: 'app-pseudo-random-number-generator',
@@ -24,7 +25,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         InputNumberModule,
         ReactiveFormsModule,
         ButtonDirective,
-        NgIf,
         Button,
         InputTextareaModule,
     ],
@@ -63,7 +63,6 @@ export class PseudoRandomNumberGeneratorComponent implements OnInit, OnDestroy {
                 )
                 .pipe(
                     tap((numberSequence) => {
-                        debugger;
                         this.sequence = numberSequence;
                         this.cdr.detectChanges();
                     }),

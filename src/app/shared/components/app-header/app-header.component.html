@@ -1,0 +1,10 @@
+<header>
+    <nav class="navigation-list">
+        <ul class="links-container">
+            @for (link of navLinks; track link.path) {
+                <li><a [routerLink]=link.path>{{link.label}}</a></li>
+            }
+        </ul>
+    </nav>
+
+</header>

@@ -1,6 +1,8 @@
-<div *ngIf="loader$ | async"
-     class="spinner-container">
-    <p-progressSpinner strokeWidth="4"
-                       animationDuration="1s"
-                       [styleClass]="'custom-spinner'"></p-progressSpinner>
-</div>
+@if (loader$ | async) {
+  <div
+    class="spinner-container">
+    <p-progressSpinner aria-label="Loading" strokeWidth="4"
+      animationDuration="1s"
+    [styleClass]="'custom-spinner'"></p-progressSpinner>
+  </div>
+}
