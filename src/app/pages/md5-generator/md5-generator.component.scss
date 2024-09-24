@@ -1,0 +1,74 @@
+.form-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.p-col {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="file"] {
+    margin-top: 0.5rem;
+}
+
+h3.app-head {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+}
+
+button.p-button {
+    border-radius: .5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+}
+
+
+
+.p-mt-2 {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+input.p-inputtext {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+}
+.button-section{
+    display: flex;
+    gap: 1rem;
+}

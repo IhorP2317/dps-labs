@@ -1,119 +1,122 @@
 <div class="base-wrapper">
-    <form [formGroup]="linearComparisonForm" class="form-grid" (ngSubmit)="onSubmit()">
-        <div class="grid-container">
-            <div class="p-field fixed-height">
-                <label for="m">Modulus (m):</label>
-                <p-inputNumber
-                    id="m"
-                    formControlName="m"
-                    [showButtons]="true"
-                    [minFractionDigits]="0"
-                    [maxFractionDigits]="0"
-                    mode="decimal"
-                    [min]="1"
-                    placeholder="Enter modulus value"
-                ></p-inputNumber>
-                @if(linearComparisonForm.controls['m'].invalid && linearComparisonForm.controls['m'].value.touched){
-                    <small
-                        class="p-error">Invalid modulus value. Must be greater than 0.
-                    </small>
-                }
+  <h2 class="app-head">Pseudorandom number generator</h2>
+  <form [formGroup]="linearComparisonForm" class="form-grid" (ngSubmit)="onSubmit()">
+    <div class="grid-container">
+      <div class="p-field fixed-height">
+        <label for="m">Modulus (m):</label>
+        <p-inputNumber
+          id="m"
+          formControlName="m"
+          [showButtons]="true"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          mode="decimal"
+          [min]="1"
+          placeholder="Enter modulus value"
+        ></p-inputNumber>
+        @if(linearComparisonForm.controls['m'].invalid && linearComparisonForm.controls['m'].value.touched){
+          <small
+            class="p-error">Invalid modulus value. Must be greater than 0.
+          </small>
+        }
 
-            </div>
+      </div>
 
-            <div class="p-field fixed-height">
-                <label for="a">Multiplier (a):</label>
-                <p-inputNumber
-                    id="a"
-                    formControlName="a"
-                    [showButtons]="true"
-                    [minFractionDigits]="0"
-                    [maxFractionDigits]="0"
-                    mode="decimal"
-                    [min]="0"
-                    placeholder="Enter multiplier value"
-                ></p-inputNumber>
-                @if(linearComparisonForm.controls['a'].invalid && linearComparisonForm.controls['a'].value.touched){
-                    <small
-                        class="p-error">Invalid multiplier value. Must be between 0 and m.
-                    </small>
-                }
+      <div class="p-field fixed-height">
+        <label for="a">Multiplier (a):</label>
+        <p-inputNumber
+          id="a"
+          formControlName="a"
+          [showButtons]="true"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          mode="decimal"
+          [min]="0"
+          placeholder="Enter multiplier value"
+        ></p-inputNumber>
+        @if(linearComparisonForm.controls['a'].invalid && linearComparisonForm.controls['a'].value.touched){
+          <small
+            class="p-error">Invalid multiplier value. Must be between 0 and m.
+          </small>
+        }
 
-            </div>
+      </div>
 
-            <div class="p-field fixed-height">
-                <label for="c">Increment (c):</label>
-                <p-inputNumber
-                    id="c"
-                    formControlName="c"
-                    [showButtons]="true"
-                    [minFractionDigits]="0"
-                    [maxFractionDigits]="0"
-                    mode="decimal"
-                    [min]="0"
-                    placeholder="Enter increment value"
-                ></p-inputNumber>
-                @if(linearComparisonForm.controls['c'].invalid && linearComparisonForm.controls['c'].value.touched){
-                    <small
-                        class="p-error">Invalid increment value. Must be between 0 and m.
-                    </small>
-                }
-            </div>
+      <div class="p-field fixed-height">
+        <label for="c">Increment (c):</label>
+        <p-inputNumber
+          id="c"
+          formControlName="c"
+          [showButtons]="true"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          mode="decimal"
+          [min]="0"
+          placeholder="Enter increment value"
+        ></p-inputNumber>
+        @if(linearComparisonForm.controls['c'].invalid && linearComparisonForm.controls['c'].value.touched){
+          <small
+            class="p-error">Invalid increment value. Must be between 0 and m.
+          </small>
+        }
+      </div>
 
-            <div class="p-field fixed-height">
-                <label for="x0">Initial Seed (x0):</label>
-                <p-inputNumber
-                    id="x0"
-                    formControlName="x0"
-                    [showButtons]="true"
-                    [minFractionDigits]="0"
-                    [maxFractionDigits]="0"
-                    mode="decimal"
-                    [min]="0"
-                    placeholder="Enter initial seed value"
-                ></p-inputNumber>
-                @if(linearComparisonForm.controls['x0'].invalid && linearComparisonForm.controls['x0'].value.touched){
-                    <small
-                        class="p-error">Invalid initial seed value. Must be between 0 and m.
-                    </small>
-                }
+      <div class="p-field fixed-height">
+        <label for="x0">Initial Seed (x0):</label>
+        <p-inputNumber
+          id="x0"
+          formControlName="x0"
+          [showButtons]="true"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          mode="decimal"
+          [min]="0"
+          placeholder="Enter initial seed value"
+        ></p-inputNumber>
+        @if(linearComparisonForm.controls['x0'].invalid && linearComparisonForm.controls['x0'].value.touched){
+          <small
+            class="p-error">Invalid initial seed value. Must be between 0 and m.
+          </small>
+        }
 
-            </div>
+      </div>
 
-            <div class="p-field fixed-height">
-                <label for="amount">Amount:</label>
-                <p-inputNumber
-                    id="amount"
-                    formControlName="amount"
-                    [showButtons]="true"
-                    [minFractionDigits]="0"
-                    [maxFractionDigits]="0"
-                    mode="decimal"
-                    [min]="1"
-                    [max]="100"
-                    placeholder="Enter amount of numbers to generate"
-                ></p-inputNumber>
-                @if (linearComparisonForm.controls['amount'].invalid && linearComparisonForm.controls['amount'].value.touched) {
-                    <small
-                        class="p-error">Invalid amount. Must be be between 1 and 100.
-                    </small>
-                }
-            </div>
+      <div class="p-field fixed-height">
+        <label for="amount">Amount:</label>
+        <p-inputNumber
+          id="amount"
+          formControlName="amount"
+          [showButtons]="true"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="0"
+          mode="decimal"
+          [min]="1"
+          [max]="100"
+          placeholder="Enter amount of numbers to generate"
+        ></p-inputNumber>
+        @if (linearComparisonForm.controls['amount'].invalid && linearComparisonForm.controls['amount'].value.touched) {
+          <small
+            class="p-error">Invalid amount. Must be be between 1 and 100.
+          </small>
+        }
+      </div>
 
-            <div class="p-field center-button fixed-height">
-                <button type="submit" pButton label="Generate Numbers" [disabled]="linearComparisonForm.invalid"></button>
-            </div>
+      <div class="p-field center-button fixed-height">
+        <button type="submit" pButton label="Generate Numbers" [disabled]="linearComparisonForm.invalid"></button>
+      </div>
+    </div>
+  </form>
+  @if (!!sequence?.pseudoRandomNumbers) {
+    <div class="p-field numbers-area">
+      <div class="area-header">
+        <label>Generated Sequence of Numbers</label>
+        <div class="download-button-area">
+          @if (!!sequence?.period) {
+            <p>period: {{sequence?.period}}</p>
+          }
         </div>
-    </form>
-    @if (!!sequence?.pseudoRandomNumbers) {
-        <div class="p-field numbers-area">
-            <div class="area-header">
-                <label>Generated Sequence of Numbers</label>
-                <div class="download-button-area">
-                    <p *ngIf="!!sequence?.period">period: {{sequence?.period}}</p>
-                </div>
-            </div>
-            <textarea pInputTextarea [value]="sequence?.pseudoRandomNumbers" rows="10" cols="100"></textarea>
-        </div>
-    }
+      </div>
+      <textarea pInputTextarea [value]="sequence?.pseudoRandomNumbers" rows="10" cols="100"></textarea>
+    </div>
+  }
 </div>

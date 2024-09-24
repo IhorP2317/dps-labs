@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LoadingService } from '../../services/loading.service';
 
 @Component({
-    selector: 'app-app-loader',
+    selector: 'app-loader',
     standalone: true,
-    imports: [AsyncPipe, ProgressSpinnerModule, NgIf],
+    imports: [AsyncPipe, ProgressSpinnerModule],
     templateUrl: './app-loader.component.html',
     styleUrl: './app-loader.component.scss',
 })
