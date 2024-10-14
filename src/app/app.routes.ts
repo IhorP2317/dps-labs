@@ -20,5 +20,12 @@ export const routes: Routes = [
                 (mod) => mod.Md5GeneratorComponent,
             ),
     },
+    {
+        path: 'rc5',
+        loadComponent: () =>
+            import('./pages/rc5-coder/rc5-coder.component').then(
+                (mod) => mod.Rc5CoderComponent,
+            ),
+    },
     { path: '**', redirectTo: '' },
 ];

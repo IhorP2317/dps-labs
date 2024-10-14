@@ -1,0 +1,84 @@
+<div class="base-wrapper">
+    <h2 class="app-head">RC5 coder</h2>
+    <form [formGroup]="rc5Form">
+        <div class="form-container">
+            <div class="form-wrapper">
+                <h3 class="app-head">Encrypt and Decrypt a file</h3>
+
+                    <div class="grid-container">
+                        <div class="p-col">
+                            <label for="key">Input Key:</label>
+                            <input
+                                id="key"
+                                pInputText
+                                formControlName="key"
+                                type="text"
+                            />
+                        </div>
+
+                        <div class="p-col">
+                            <label for="fileName">Select File:</label>
+                            <input
+                                id="fileName"
+                                type="file"
+                                (change)="onFileSelected($event,  'fileName')"
+                            />
+                        </div>
+                    </div>
+                <div class="grid-container">
+                    <div class="p-col">
+                        <label for="wordSizeInBits">Word Size (in Bits):</label>
+                        <p-dropdown
+                            id="wordSizeInBits"
+                            formControlName="wordSizeInBits"
+                            [options]="WORD_LENGTH_OPTIONS"
+                            optionLabel="name"
+                            placeholder="Select Word Size">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col">
+                        <label for="wordSizeInBits">Round Count:</label>
+                        <p-dropdown
+                            id="roundCount"
+                            formControlName="roundCount"
+                            [options]="ROUND_COUNT_OPTIONS"
+                            optionLabel="name"
+                            placeholder="Select Round Count">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-col">
+                        <label for="keyLengthInBytes">Key Length(in Bytes):</label>
+                        <p-dropdown
+                            id="keyLengthInBytes"
+                            formControlName="keyLengthInBytes"
+                            [options]="KEY_LENGTH_OPTIONS"
+                            optionLabel="name"
+                            placeholder="Select Key Length">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Encode RC5"
+                            [disabled]="rc5Form.invalid"
+                            (click)="onRc5FormSubmit(true)"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            (click)="onRc5FormSubmit(false)"
+                            label="Decode RC5"
+                            [disabled]="rc5Form.invalid"
+                        ></button>
+                    </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+

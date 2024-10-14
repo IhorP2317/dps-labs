@@ -19,5 +19,9 @@ export class AppHeaderComponent {
             path: '/md5',
             label: 'MD5',
         },
+        {
+            path: '/rc5',
+            label: 'RC5',
+        },
     ];
 }

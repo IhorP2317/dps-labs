@@ -41,7 +41,6 @@ export class Md5GeneratorComponent implements OnInit, OnDestroy {
     public hashFormGroup: FormGroup;
     constructor(
         private readonly formBuilder: NonNullableFormBuilder,
-        private readonly cdr: ChangeDetectorRef,
         private readonly hashService: HashService,
     ) {}
 

@@ -5,9 +5,16 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
+import { environment } from '../enviroments/environment';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        MessageService,
+        {
+            provide: 'apiUrl',
+            useValue: environment.apiUrl,
+        },
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
         provideAnimations(),

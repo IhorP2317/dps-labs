@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AppLoaderComponent } from './shared/components/app-loader/app-loader.component';
 import { AppHeaderComponent } from './shared/components/app-header/app-header.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'app-root',
@@ -18,6 +19,7 @@ import { AppHeaderComponent } from './shared/components/app-header/app-header.co
         ProgressSpinnerModule,
         AppLoaderComponent,
         AppHeaderComponent,
+        ToastModule,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
