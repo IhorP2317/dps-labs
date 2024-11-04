@@ -1,8 +1,13 @@
 .form-container {
+    flex: 1;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.form-row {
     display: flex;
-    justify-content: space-around;
-    padding: 2rem;
-    margin-top: 2rem;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 2rem;
 }
 
 .grid-container {
@@ -14,7 +19,12 @@
 .p-col {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0 auto;
 }
+
 
 input[type="file"] {
     margin-top: 0.5rem;
@@ -72,4 +82,34 @@ input.p-inputtext {
     display: flex;
     justify-content: center;
     gap: 1rem;
+}
+.button-row {
+    display: flex;
+    gap: 0.5rem; /* Adjust the gap between buttons as needed */
+    justify-content: center; /* Center-align within the p-col */
+    margin-top: 0.5rem; /* Add space above the button row */
+}
+
+.button-row button.p-button {
+    padding: 0.5rem 1rem; /* Adjust button padding if needed */
+    font-size: 0.9rem; /* Adjust font size for better alignment */
+}
+.table-container {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.table-column {
+    flex: 1;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
 }

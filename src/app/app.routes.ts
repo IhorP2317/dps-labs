@@ -21,10 +21,10 @@ export const routes: Routes = [
             ),
     },
     {
-        path: 'rc5',
+        path: 'file-coder',
         loadComponent: () =>
-            import('./pages/rc5-coder/rc5-coder.component').then(
-                (mod) => mod.Rc5CoderComponent,
+            import('./pages/file-coder/file-coder.component').then(
+                (mod) => mod.FileCoderComponent,
             ),
     },
     { path: '**', redirectTo: '' },

@@ -1,0 +1,219 @@
+<div class="base-wrapper">
+    <h2 class="app-head">Encrypt and Decrypt a file</h2>
+    <div class="form-row">
+        <form [formGroup]="rc5Form">
+            <div class="form-container">
+                <div class="form-wrapper">
+                    <h3 class="app-head">RC5 coder</h3>
+
+                    <div class="grid-container">
+                        <div class="p-col">
+                            <label for="key">Input Key:</label>
+                            <input
+                                id="key"
+                                pInputText
+                                formControlName="key"
+                                type="text"
+                            />
+                        </div>
+
+                        <div class="p-col">
+                            <label for="fileName">Select File:</label>
+                            <input
+                                id="fileName"
+                                type="file"
+                                (change)="onFileSelected($event, rc5Form,  'fileName')"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="p-col">
+                            <label for="wordSizeInBits">Word Size (in Bits):</label>
+                            <p-dropdown
+                                id="wordSizeInBits"
+                                formControlName="wordSizeInBits"
+                                [options]="WORD_LENGTH_OPTIONS"
+                                optionLabel="name"
+                                optionValue="value"
+                                placeholder="Select Word Size">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-col">
+                            <label for="wordSizeInBits">Round Count:</label>
+                            <p-dropdown
+                                id="roundCount"
+                                formControlName="roundCount"
+                                [options]="ROUND_COUNT_OPTIONS"
+                                optionLabel="name"
+                                placeholder="Select Round Count">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-col">
+                            <label for="keyLengthInBytes">Key Length(in Bytes):</label>
+                            <p-dropdown
+                                id="keyLengthInBytes"
+                                formControlName="keyLengthInBytes"
+                                [options]="RC5_KEY_LENGTH_OPTIONS"
+                                optionLabel="name"
+                                placeholder="Select Key Length">
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Encode RC5"
+                            [disabled]="rc5Form.invalid"
+                            (click)="onRc5FormSubmit(true)"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            (click)="onRc5FormSubmit(false)"
+                            label="Decode RC5"
+                            [disabled]="rc5Form.invalid"
+                        ></button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <form [formGroup]="rsaForm">
+            <div class="form-container">
+                <div class="form-wrapper">
+                    <h3 class="app-head">RSA coder</h3>
+
+                    <div class="grid-container">
+                        <div class="p-col">
+                            <label for="key">Input Key:</label>
+                            <p-dropdown
+                                id="keyLengthInBytesRSA"
+                                formControlName="keyLengthInBytesRSA"
+                                [options]="RSA_KEY_LENGTH_OPTIONS"
+                                optionLabel="name"
+                                optionValue="value"
+                                placeholder="Select Key Length">
+                            </p-dropdown>
+
+                        </div>
+
+
+                        <div class="p-col">
+                            <label for="fileName">Select File:</label>
+                            <input
+                                id="fileNameRSA"
+                                type="file"
+                                (change)="onFileSelected($event, rsaForm, 'fileName')"
+                            />
+                        </div>
+                        <div class="p-col">
+                            <label for="fileName">Import Key:</label>
+                            <input
+                                id="keyFile"
+                                type="file"
+                                (change)="onImportFileSelected($event)"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                       <div class="p-col">
+                           <button
+                               pButton
+                               type="button"
+                               class="p-button-label"
+                               [disabled]="!rsaForm.get('keyLengthInBytesRSA')?.value"
+                               (click)="onGenerateNewKeyPair(); $event.stopPropagation();"
+                               label="Generate New Key">
+                           </button>
+                       </div>
+                        <div class="p-col">
+                            <button
+                                pButton
+                                type="button"
+                                label="Export Public key"
+                                (click)="onExportKeySelected(false)">
+                            </button>
+                        </div>
+                           <div class="p-col">
+                               <button
+                                   pButton
+                                   type="button"
+                                   label="Export Full key"
+                                   (click)="onExportKeySelected(true)">
+                               </button>
+                           </div>
+
+
+                    </div>
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Encode RSA"
+                            [disabled]="rsaForm.invalid"
+                            (click)="onRsaFormSubmit(true)"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            (click)="onRsaFormSubmit(false)"
+                            label="Decode RSA"
+                            [disabled]="rsaForm.invalid"
+                        ></button>
+                    </div>
+            </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-container">
+        <!-- Encryption Responses Table -->
+        <div class="table-column">
+            <h3>Encryption Responses</h3>
+            <p-table [value]="encryptionResponses" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Result File Name</th>
+                        <th>Duration</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-response>
+                    <tr>
+                        <td>{{ response.algorithm }}</td>
+                        <td>{{ response.resultFileName }}</td>
+                        <td>{{ response.duration }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Decryption Responses Table -->
+        <div class="table-column">
+            <h3>Decryption Responses</h3>
+            <p-table [value]="decryptionResponses" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Result File Name</th>
+                        <th>Duration</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-response>
+                    <tr>
+                        <td>{{ response.algorithm }}</td>
+                        <td>{{ response.resultFileName }}</td>
+                        <td>{{ response.duration }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+
+</div>
+
+

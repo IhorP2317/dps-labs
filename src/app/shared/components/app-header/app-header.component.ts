@@ -20,8 +20,8 @@ export class AppHeaderComponent {
             label: 'MD5',
         },
         {
-            path: '/rc5',
-            label: 'RC5',
+            path: '/file-coder',
+            label: 'FILE CODER',
         },
     ];
 }
