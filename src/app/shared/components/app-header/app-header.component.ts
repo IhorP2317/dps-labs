@@ -23,5 +23,6 @@ export class AppHeaderComponent {
             path: '/file-coder',
             label: 'FILE CODER',
         },
+        { path: '/dsa-signature', label: 'DSA' },
     ];
 }

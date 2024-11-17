@@ -27,5 +27,12 @@ export const routes: Routes = [
                 (mod) => mod.FileCoderComponent,
             ),
     },
+    {
+        path: 'dsa-signature',
+        loadComponent: () =>
+            import('./pages/dsa-signature/dsa-signature.component').then(
+                (mod) => mod.DsaSignatureComponent,
+            ),
+    },
     { path: '**', redirectTo: '' },
 ];

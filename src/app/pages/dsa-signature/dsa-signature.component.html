@@ -1,0 +1,102 @@
+<div class="base-wrapper">
+    <h2 class="app-head">DSA Signature Manager</h2>
+    <form [formGroup]="dsaForm">
+        <div class="form-container">
+            <!-- Input Group Section -->
+            <div class="d-flex flex-column">
+                <h3 class="app-head">Sign a String</h3>
+                <div formGroupName="inputFromStringGroup">
+                    <div class="grid-container string-grid">
+                        <!-- Input String -->
+                        <div class="p-col">
+                            <label for="inputString">Input String:</label>
+                            <input
+                                id="inputString"
+                                pInputText
+                                formControlName="inputString"
+                                type="text"
+                            />
+                        </div>
+
+                    </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Get Signature"
+                            [disabled]="dsaForm.get('inputGroup')?.invalid"
+                            (click)="onGetSignatureFromStringClick()"
+                        ></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Group Section -->
+            <div class="d-flex flex-column">
+                <h3 class="app-head">Sign a File</h3>
+                <div formGroupName="inputFromFileGroup" class="p-mt-3">
+                    <div class="grid-container file-grid-grid">
+                        <!-- Select File -->
+                        <div class="p-col">
+                            <label for="inputDataFileName">Select File:</label>
+                            <input
+                                id="inputDataFileName"
+                                type="file"
+                                (change)="onFileSelected($event, 'inputDataFileName')"
+                            />
+                        </div>
+                        <div class="p-col">
+                            <label for="inputSignFileName">Select a Sign File:</label>
+                            <input
+                                id="inputSignFileName"
+                                type="file"
+                                (change)="onFileSelected($event,  'inputSignFileName')"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="p-mt-2 button-section">
+                        <button
+                            pButton
+                            type="button"
+                            label="Get Signature"
+                            (click)="onGetSignatureFromFileClick()"
+                            [disabled]="dsaForm.get('inputFromFileGroup')?.invalid"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            class="p-button-secondary"
+                            label="Verify"
+                            (click)="onVerifySignatureClick()"
+                            [disabled]="!(!!dsaForm.get('inputFromFileGroup.inputDataFileName')?.value && !!dsaForm.get('inputFromFileGroup.inputSignFileName')?.value) "
+                        ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(!!dsaForm.get('signatureResult')?.value){
+            <div class="results-container">
+                <p-panel styleClass="full-width-panel">
+                    <ng-template pTemplate="header">
+                        <div class="header-content">
+                            <span>Result:</span>
+                            <button (click)="saveToFile(dsaForm.get('signatureResult')?.value)"
+                                pButton
+                                type="button"
+                                label="Save sign to file"
+                                class="header-button"
+                            ></button>
+                        </div>
+                    </ng-template>
+                    <div>{{ dsaForm.get('signatureResult')?.value }}</div>
+                </p-panel>
+            </div>
+        }
+
+
+    </form>
+</div>
+
+

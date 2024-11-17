@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PseudoRandomNumbers } from '../../core/interfaces/pseudo-random-numbers-sequence';
 import { Observable } from 'rxjs';
@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class PseudoRandomNumbersEndpointService {
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        @Inject('apiUrl') private apiUrl: string,
+    ) {}
     public getPseudoGeneratedNumbers(
         m: number,
         a: number,
@@ -22,7 +25,7 @@ export class PseudoRandomNumbersEndpointService {
         params = params.set('m', m);
         params = params.set('sequenceLength', amount);
         return this.http.get<PseudoRandomNumbers>(
-            'https://localhost:7013/pseudo-random-numbers',
+            `${this.apiUrl}pseudo-random-numbers`,
             { params },
         );
     }
